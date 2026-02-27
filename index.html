@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logement entier : hébergement - Héauville, France</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a1a;
+            --accent: #c9a962;
+            --airbnb: #ff385c;
+            --light: #f8f7f4;
+            --text: #333;
+            --text-light: #717171;
+            --border: #ddd;
+            --success: #00a699;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: white;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Header/Hero */
+        header {
+            background: linear-gradient(135deg, rgba(26,26,26,0.6), rgba(26,26,26,0.3)), url('photo1.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 150px 20px 100px;
+            margin-top: 60px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .badge-new {
+            background: var(--airbnb);
+            margin-left: 10px;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .header-meta {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .photo-count {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            aspect-ratio: 4/3;
+            background: #f0f0f0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item.featured {
+            grid-column: span 2;
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 20px;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .photo-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Load More */
+        .load-more-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .load-more-btn {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .load-more-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        /* Host Section */
+        .host-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .host-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .host-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .host-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 32px;
+            background: var(--light);
+        }
+
+        .highlight-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .highlight-content h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .highlight-content p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Description */
+        .description {
+            margin-bottom: 32px;
+        }
+
+        .description h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .description-text {
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .location-list {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .location-list ul {
+            list-style: none;
+        }
+
+        .location-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .location-list li::before {
+            content: "📍";
+            position: absolute;
+            left: 0;
+        }
+
+        /* Amenities */
+        .amenities {
+            margin-bottom: 32px;
+        }
+
+        .amenities h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .amenity-icon {
+            font-size: 1.3rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .show-amenities-btn {
+            border: 1px solid var(--border);
+            background: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Contact Card */
+        .contact-card {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+
+        .contact-card h3 {
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+        }
+
+        .contact-card p {
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .phone-display {
+            background: var(--success);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+
+        .phone-display .label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: 4px;
+        }
+
+        .phone-display .number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .email-btn {
+            display: block;
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        .email-btn:hover {
+            background: #b8984f;
+            transform: translateY(-2px);
+        }
+
+        .response-time {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        /* Info Section */
+        .info-section {
+            background: white;
+            padding: 60px 0;
+        }
+
+        .info-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .info-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            padding: 8px 0;
+        }
+
+        .info-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .info-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: #1a1a1a;
+            color: white;
+            padding: 60px 0;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .contact-detail strong {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .contact-detail a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .contact-detail a:hover {
+            text-decoration: underline;
+        }
+
+        .phone-box {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .phone-box .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+
+        /* Form */
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #b8984f;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            display: none;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .hidden { display: none !important; }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .gallery { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 968px) {
+            .content-grid,
+            .info-container,
+            .contact-container { grid-template-columns: 1fr; }
+            
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+            
+            .gallery-item.featured {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+            
+            .nav-links { display: none; }
+            
+            header h1 { font-size: 2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .gallery { grid-template-columns: 1fr; }
+            .gallery-item.featured { grid-column: span 1; }
+            .lightbox-nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Ma Maison</div>
+        <ul class="nav-links">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#galerie">Galerie</a></li>
+            <li><a href="#infos">Infos</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header id="accueil">
+        <div class="badge">Logement entier</div>
+        <div class="badge badge-new">Nouveau</div>
+        <h1>Hébergement - Héauville, France</h1>
+        <p class="header-meta">5 voyageurs · 3 chambres · 4 lits · 1 salle de bain</p>
+        <p style="font-size: 1.1rem; opacity: 0.9; margin-top: 1rem;">40 photos disponibles · Idéal pour déplacements professionnels</p>
+    </header>
+
+    <div class="container">
+        <!-- Gallery -->
+        <section class="gallery-section" id="galerie">
+            <h2 class="section-title">Galerie Photos</h2>
+            <p class="photo-count">📷 40 photos du logement · Cliquez pour agrandir</p>
+            
+            <div class="gallery" id="gallery"></div>
+
+            <div class="load-more-container" id="loadMoreContainer">
+                <button class="load-more-btn" onclick="loadMorePhotos()">
+                    Voir plus de photos (<span id="remainingCount">20</span> restantes)
+                </button>
+            </div>
+        </section>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Left Column -->
+            <div>
+                <!-- Host -->
+                <div class="host-section">
+                    <div class="host-avatar">A</div>
+                    <div class="host-info">
+                        <h3>Hôte : Adrien</h3>
+                        <p>Nouvel hôte</p>
+                    </div>
+                </div>
+
+                <!-- Highlight -->
+                <div class="highlight-box">
+                    <div class="highlight-icon">☕</div>
+                    <div class="highlight-content">
+                        <h4>Café à domicile</h4>
+                        <p>Commencez la journée du bon pied grâce à la machine à expresso.</p>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="description">
+                    <h2>À propos de ce logement</h2>
+                    <p class="description-text">
+                        Situé à <strong>Héauville</strong>, ce gîte indépendant est idéal pour les déplacements professionnels comme pour les séjours en famille.
+                    </p>
+                    
+                    <div class="location-list">
+                        <ul>
+                            <li><strong>10 min</strong> de Flamanville (EDF)</li>
+                            <li><strong>15 min</strong> de La Hague (ORANO)</li>
+                            <li><strong>20 min</strong> de Cherbourg (NAVAL Group)</li>
+                            <li><strong>5 min</strong> de Siouville-Hague (plage, surf, randonnée)</li>
+                        </ul>
+                    </div>
+                    
+                    <p class="description-text">
+                        Profitez d'une magnifique plage très appréciée des surfeurs, randonneurs et amoureux de la nature.
+                    </p>
+                </div>
+
+                <!-- Amenities -->
+                <div class="amenities">
+                    <h2>Ce que propose ce logement</h2>
+                    <div class="amenities-grid">
+                        <div class="amenity-item">
+                            <span class="amenity-icon">🍴</span>
+                            <span>Cuisine</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon">📶</span>
+                            <span>Wifi</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon">💼</span>
+                            <span>Espace de travail dédié</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon">🚗</span>
+                            <span>Stationnement gratuit sur place</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon">📺</span>
+                            <span>Télévision</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon">🌀</span>
+                            <span>Lave-linge</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon">🛏️</span>
+                            <span>Lit parapluie (sur demande)</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon">👶</span>
+                            <span>Chaise haute bébé (sur demande)</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon">🛁</span>
+                            <span>Baignoire bébé (sur demande)</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon">⚠️</span>
+                            <span>Détecteur de monoxyde de carbone</span>
+                        </div>
+                    </div>
+                    <button class="show-amenities-btn">Afficher les 47 équipements</button>
+                </div>
+            </div>
+
+            <!-- Right Column - Contact Card -->
+            <div class="contact-card">
+                <h3>📞 Réserver maintenant</h3>
+                <p>Contactez directement l'hôte pour vérifier les disponibilités</p>
+                
+                <div class="phone-display" onclick="copyPhone()">
+                    <div class="label">📱 Téléphone (cliquez pour copier)</div>
+                    <div class="number" id="phoneDisplay">06 12 34 56 78</div>
+                </div>
+
+                <a href="mailto:haytoumiamine@gmail.com?subject=Demande%20de%20réservation%20-%20Gîte%20Héauville&body=Bonjour%20Adrien,%0A%0AJe%20suis%20intéressé(e)%20par%20votre%20gîte%20à%20Héauville.%0A%0ADates%20souhaitées%20:%0ANombre%20de%20voyageurs%20:%0A%0ACordialement," class="email-btn">
+                    ✉️ Envoyer un email
+                </a>
+
+                <p class="response-time">⚡ Réponse rapide garantie</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Section -->
+    <section class="info-section" id="infos">
+        <div class="info-container">
+            <div class="info-content">
+                <h2>Caractéristiques du logement</h2>
+                <p style="color: #666; margin-bottom: 2rem;">Gîte indépendant tout confort · 40 photos disponibles</p>
+                
+                <div class="features">
+                    <div class="feature">👥 5 voyageurs</div>
+                    <div class="feature">🛏️ 3 chambres</div>
+                    <div class="feature">🛏️ 4 lits</div>
+                    <div class="feature">🚿 1 salle de bain</div>
+                    <div class="feature">☕ Machine à expresso</div>
+                    <div class="feature">🏖️ 5 min de la plage</div>
+                    <div class="feature">📷 40 photos</div>
+                    <div class="feature">🏠 Logement entier</div>
+                </div>
+            </div>
+            
+            <div class="info-image">
+                <img src="photo1.jpg" alt="Aperçu">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Contactez l'hôte</h2>
+                <p style="opacity: 0.8; margin-bottom: 2rem;">Plusieurs moyens pour nous joindre</p>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-detail">
+                        <strong>Email</strong>
+                        <a href="mailto:haytoumiamine@gmail.com">haytoumiamine@gmail.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-detail">
+                        <strong>Téléphone</strong>
+                        <a href="tel:+33612345678">06 12 34 56 78</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-detail">
+                        <strong>Adresse</strong>
+                        <span>Héauville, 50340 Normandie</span>
+                    </div>
+                </div>
+
+                <div class="phone-box">
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 8px;">Appelez-nous directement</div>
+                    <div class="number">06 12 34 56 78</div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3 style="margin-bottom: 20px; color: var(--primary);">Envoyer un message</h3>
+                <form onsubmit="sendEmail(event)">
+                    <div class="form-group">
+                        <label>Votre nom</label>
+                        <input type="text" id="senderName" required placeholder="Jean Dupont">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Votre email</label>
+                        <input type="email" id="senderEmail" required placeholder="jean@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Votre téléphone</label>
+                        <input type="tel" id="senderPhone" placeholder="06 00 00 00 00">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Dates souhaitées</label>
+                        <input type="text" id="dates" placeholder="Du 15/07 au 22/07/2026">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Votre message</label>
+                        <textarea rows="4" id="message" required placeholder="Bonjour, je suis intéressé(e) par votre gîte pour..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">📧 Envoyer par email</button>
+                </form>
+
+                <div style="margin-top: 16px;">
+                    <a href="tel:+33612345678" class="btn" style="display: block; text-decoration: none; background: var(--success); text-align: center;">
+                        📱 Appeler maintenant
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 - Logement Héauville | Hôte : Adrien | 
+           📧 <a href="mailto:haytoumiamine@gmail.com">haytoumiamine@gmail.com</a> | 
+           📱 <a href="tel:+33612345678">06 12 34 56 78</a>
+        </p>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <span class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">‹</span>
+        <span class="lightbox-nav lightbox-next" onclick="changePhoto(1)">›</span>
+        <img src="" alt="Photo" id="lightbox-img">
+        <div class="lightbox-counter" id="lightboxCounter">1 / 40</div>
+    </div>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            email: 'haytoumiamine@gmail.com',
+            phone: '06 12 34 56 78',
+            totalPhotos: 40,
+            photosPerLoad: 20
+        };
+
+        const photoTitles = [
+            "Vue d'ensemble", "Façade principale", "Entrée", "Salon", "Salon - Coin cheminée",
+            "Cuisine moderne", "Cuisine équipée", "Salle à manger", "Chambre 1 - Master", "Chambre 1 - Dressing",
+            "Chambre 2 - Double", "Chambre 2 - Détail", "Chambre 3 - Simple", "Chambre 3 - Bureau", "Salle de bain",
+            "Douche italienne", "WC séparé", "Couloir", "Escalier", "Jardin privatif",
+            "Terrasse bois", "Barbecue", "Parking privé", "Garage", "Vue extérieure",
+            "Jardin - Angle 2", "Coin lecture", "Espace bureau", "Rangements", "Placards",
+            "Lave-linge", "Machine à expresso", "Smart TV", "Box internet", "Radiateurs",
+            "Détecteur fumée", "Extérieur de nuit", "Vue aérienne", "Plan du logement", "Situation géographique"
+        ];
+
+        let currentPhotoIndex = 0;
+        let visiblePhotos = CONFIG.photosPerLoad;
+
+        function generateGallery() {
+            const gallery = document.getElementById('gallery');
+            
+            for (let i = 1; i <= CONFIG.totalPhotos; i++) {
+                const item = document.createElement('div');
+                item.className = `gallery-item ${i > CONFIG.photosPerLoad ? 'hidden' : ''} ${i === 1 ? 'featured' : ''}`;
+                item.onclick = () => openLightbox(i - 1);
+                
+                const title = photoTitles[i - 1] || `Photo ${i}`;
+                
+                item.innerHTML = `
+                    <span class="photo-number">${i}</span>
+                    <img src="photo${i}.jpg" alt="${title}" loading="lazy" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'">
+                    <div class="gallery-overlay">${title}</div>
+                `;
+                
+                gallery.appendChild(item);
+            }
+            updateLoadMoreButton();
+        }
+
+        function loadMorePhotos() {
+            const hidden = document.querySelectorAll('.gallery-item.hidden');
+            for (let i = 0; i < Math.min(CONFIG.photosPerLoad, hidden.length); i++) {
+                hidden[i].classList.remove('hidden');
+            }
+            visiblePhotos += Math.min(CONFIG.photosPerLoad, hidden.length);
+            updateLoadMoreButton();
+        }
+
+        function updateLoadMoreButton() {
+            const remaining = CONFIG.totalPhotos - visiblePhotos;
+            document.getElementById('remainingCount').textContent = remaining;
+            if (remaining <= 0) {
+                document.getElementById('loadMoreContainer').classList.add('hidden');
+            }
+        }
+
+        function openLightbox(index) {
+            currentPhotoIndex = index;
+            updateLightbox();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function changePhoto(direction) {
+            currentPhotoIndex = (currentPhotoIndex + direction + CONFIG.totalPhotos) % CONFIG.totalPhotos;
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            document.getElementById('lightbox-img').src = `photo${currentPhotoIndex + 1}.jpg`;
+            document.getElementById('lightboxCounter').textContent = 
+                `${currentPhotoIndex + 1} / ${CONFIG.totalPhotos} - ${photoTitles[currentPhotoIndex]}`;
+        }
+
+        function copyPhone() {
+            navigator.clipboard.writeText(CONFIG.phone).then(() => {
+                showToast('✅ Numéro copié !');
+            });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function sendEmail(e) {
+            e.preventDefault();
+            const name = document.getElementById('senderName').value;
+            const email = document.getElementById('senderEmail').value;
+            const phone = document.getElementById('senderPhone').value;
+            const dates = document.getElementById('dates').value;
+            const message = document.getElementById('message').value;
+
+            const subject = `Demande réservation - Gîte Héauville de ${name}`;
+            const body = `Bonjour Adrien,
+
+Je suis intéressé(e) par votre gîte à Héauville (40 photos vues).
+
+📅 Dates: ${dates || 'À définir'}
+👥 Nom: ${name}
+📧 Email: ${email}
+📱 Téléphone: ${phone || 'Non renseigné'}
+
+📝 Message:
+${message}
+
+Cordialement,
+${name}`;
+
+            window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            showToast('✅ Email préparé !');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') changePhoto(-1);
+            if (e.key === 'ArrowRight') changePhoto(1);
+        });
+
+        window.addEventListener('load', generateGallery);
+    </script>
+
+</body>
+</html>
